@@ -1,0 +1,14 @@
+crewai==0.1.6
+crewai-tools==0.1.6
+pydantic==2.11.0
+pandas==2.3.1
+scikit-learn==1.7.1
+fastapi==0.95.0
+uvicorn==0.22.0
+streamlit==1.18.0
+langsmith==0.1.0
+psycopg2-binary==2.9.3
+pillow==9.3.0
+pytesseract==0.3.10
+python-dotenv==1.0.0
+pyyaml

@@ -1,0 +1,41 @@
+# Task definitions for the expense reimbursement validation crew.
+
+- id: "ocr_receipt"
+  description: |
+    Use the Gemini Vision Pro OCR service to extract text from the uploaded receipt file at {receipt_path}.
+    Ensure that all lines of text from the image or PDF are captured.  Return the raw text exactly as it appears on the receipt.
+  agent: "ocr_agent"
+  expected_output: |
+    A plain‑text string containing the complete content of the receipt.
+
+- id: "parse_receipt"
+  description: |
+    Given the raw receipt text produced by the OCR task, parse the content to identify:
+      • The total amount claimed (including currency).
+      • The transaction date in ISO format (YYYY‑MM‑DD).
+      • The merchant or restaurant name.
+      • The employee name, if present.
+    Structure the parsed information as JSON with keys: amount, date, merchant, employee.
+    Use reasoning to interpret unclear or noisy text and clarify ambiguous fields.
+  agent: "parser_agent"
+  expected_output: |
+    {"amount": <float>, "date": "<YYYY‑MM‑DD>", "merchant": "<merchant>", "employee": "<employee>"}
+
+- id: "validate_claim"
+  description: |
+    Compare the parsed receipt data with the submitted claim information provided in {claim_data}.
+    Check whether the amount matches the claimed amount, the date is within the permitted timeframe, and the employee name corresponds to the claimant.
+    Detect duplicates by querying the historical claims database (via tool if configured).  Flag any policy violations (e.g., exceeding per diem limits, disallowed items).
+    Return "approved" if all checks pass or "discrepancy" followed by a list of issues if any check fails.
+  agent: "validator_agent"
+  expected_output: |
+    "approved" OR a structured list of discrepancies explaining each violation.
+
+- id: "notify_result"
+  description: |
+    Create a concise notification message based on the validation result {validation_result}.
+    If the claim is approved, congratulate the employee and inform them that reimbursement will be processed.
+    If discrepancies exist, list the issues in bullet form and advise the employee on how to resolve them or appeal.
+  agent: "notifier_agent"
+  expected_output: |
+    A human‑friendly message summarising the approval or detailing the discrepancies found.
