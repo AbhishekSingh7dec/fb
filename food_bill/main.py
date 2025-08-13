@@ -190,7 +190,65 @@ def main() -> None:
         print(task_result.raw)
 
 
+receipt = {
+    "Restaurant Name": "Maarhaba Restaurant",
+    "Location": "Gariahat (South) Dakuria, Kolkata - 700031",
+    "Date of Invoice": "18/10/18",
+    "Time of Invoice": "22:45",
+    "Bill Number": "5365",
+    "Items Ordered": [
+        {
+            "Item Name": "Water Bottle (packeged)",
+            "Quantity": 1,
+            "Rate": 30.00,
+            "Amount": 30.00
+        },
+        {
+            "Item Name": "Crispy Chilli Baby Corn",
+            "Quantity": 1,
+            "Rate": 170.00,
+            "Amount": 170.00
+        },
+        {
+            "Item Name": "Kashmiri Pulao",
+            "Quantity": 1,
+            "Rate": 130.00,
+            "Amount": 130.00
+        },
+        {
+            "Item Name": "Kadai Chicken",
+            "Quantity": 1,
+            "Rate": 220.00,
+            "Amount": 220.00
+        },
+        {
+            "Item Name": "Mutton Biriyani",
+            "Quantity": 1,
+            "Rate": 220.00,
+            "Amount": 220.00
+        },
+        {
+            "Item Name": "Soft Drinks",
+            "Quantity": 1,
+            "Rate": 40.00,
+            "Amount": 40.00
+        }
+    ],
+    "Sub Total": 840.00,
+    "SGST Amount and Percentage": {
+        "Amount": None,
+        "Percentage": None
+    },
+    "CGST Amount and Percentage": {
+        "Amount": None,
+        "Percentage": None
+    },
+    "Grand Total": 840.00
+}
+
+
 if __name__ == "__main__":
     main()
+
 
 
