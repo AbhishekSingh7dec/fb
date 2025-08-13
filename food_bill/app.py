@@ -1,10 +1,27 @@
+import os, json
 import streamlit as st
 from io import BytesIO
+from PIL import Image
+import pytesseract
+
+
+# import cv2
 import tempfile
-import os
+
+
+# Function to process text from images using OCR (Tesseract)
+def extract_text_from_image(image):
+    """Extracts text from an image using Tesseract OCR. 
+    but in long term, we should use Google Vision API.
+    """
+    text = pytesseract.image_to_string(image)
+    # image = Image.open(uploaded_file)
+    # emirates_id_text = extract_text_from_image(image)
+    return text
+
 
 # Function to handle file upload
-def handle_file_upload(uploaded_file):
+def handle_file_upload(uploaded_file):          # uploaded_file = "food_bill/bill_3.jpg"
     if uploaded_file is not None:
         # Create a temporary file to save the uploaded content
         with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
@@ -12,7 +29,7 @@ def handle_file_upload(uploaded_file):
             tmp_file_path = tmp_file.name
         st.session_state.uploaded_file_path = tmp_file_path
         st.success("File uploaded successfully!")
-        st.write(f"File saved at: {tmp_file_path}")
+        #st.write(f"File saved at: {tmp_file_path}")
     else:
         st.error("No file uploaded.")
 
@@ -48,7 +65,7 @@ def display_form():
                 st.write("Processing reimbursement...")
                 result = process_reimbursement(employee_id, employee_name, claimed_amount, st.session_state.uploaded_file_path)
                 st.write(result["message"])
-                st.image(result["receipt_path"])
+                #st.image(result["receipt_path"])
             else:
                 st.error("Please fill in all fields and upload a receipt.")
 

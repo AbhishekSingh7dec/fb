@@ -1,20 +1,11 @@
 # Agent definitions for the expense reimbursement validation crew.
 ocr_agent:
   role: "OCR Specialist"
-  goal: "Use Gemini Vision Pro to extract text from uploaded receipts"
+  goal: "Use LLM to extract text from uploaded receipts"
   backstory: "You process receipt images or PDFs and return all readable text."
   verbose: true
   allow_delegation: false
-  llm:
-    provider: "openai"
-    model: "gpt-4"
-    api_key: "${OPENAI_API_KEY}"
-  tools:
-    # The Gemini Vision Pro tool is configured via environment variables.
-    - name: "gemini_vision_pro"
-      provider: "google"
-      model: "gemini-pro-vision"
-      api_key: "${GEMINI_API_KEY}"
+  llm: "${llm}" 
 
 parser_agent:
   role: "Receipt Parser"
@@ -22,10 +13,7 @@ parser_agent:
   backstory: "You analyse the raw text extracted from receipts and identify key information."
   verbose: true
   allow_delegation: false
-  llm:
-    provider: "openai"
-    model: "gpt-4"
-    api_key: "${OPENAI_API_KEY}"
+  llm: "${llm}"
 
 validator_agent:
   role: "Claim Validator"
@@ -33,10 +21,7 @@ validator_agent:
   backstory: "You ensure that the claimed amount, date and employee details match the receipt and detect duplicates or policy violations. In case of discrepancies, you process the claim mentioned in receipt."
   verbose: true
   allow_delegation: false
-  llm:
-    provider: "openai"
-    model: "gpt-4"
-    api_key: "${OPENAI_API_KEY}"
+  llm: "${llm}"
 
 notifier_agent:
   role: "Notification Agent"
@@ -44,7 +29,4 @@ notifier_agent:
   backstory: "You craft clear messages that either approve the claim or outline detected discrepancies and next steps."
   verbose: true
   allow_delegation: false
-  llm:
-    provider: "openai"
-    model: "gpt-4"
-    api_key: "${OPENAI_API_KEY}"
+  llm: "${llm}"
